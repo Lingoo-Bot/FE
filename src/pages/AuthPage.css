@@ -1,0 +1,113 @@
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 28px 40px;
+  background: #ffffff;
+}
+
+.auth-top {
+  width: 100%;
+  padding: 16px 0 8px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  padding: 4px;
+  line-height: 1;
+}
+
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px 0 32px;
+  gap: 8px;
+}
+
+.penguin-emoji.small {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.auth-desc {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+}
+
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.auth-form .btn {
+  margin-top: 8px;
+}
+
+.auth-switch {
+  font-size: 14px;
+  color: #888;
+}
+
+.auth-link {
+  color: #4A90D9;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+.username-row {
+  display: flex;
+  gap: 8px;
+}
+
+.username-row input {
+  flex: 1;
+  width: 0;
+}
+
+.check-btn {
+  flex-shrink: 0;
+  padding: 0 14px;
+  height: 46px;
+  border-radius: 10px;
+  border: 1.5px solid #4A90D9;
+  background: white;
+  color: #4A90D9;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.check-btn:disabled {
+  border-color: #ccc;
+  color: #ccc;
+  cursor: default;
+}
+
+.username-msg {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.username-msg.taken {
+  color: #ff4d4f;
+}
+
+.username-msg.available {
+  color: #52c41a;
+}

@@ -1,0 +1,79 @@
+.initial-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 60px 32px 48px;
+  background: linear-gradient(180deg, #e8f4fd 0%, #ffffff 50%);
+}
+
+.initial-brand {
+  text-align: center;
+}
+
+.initial-subtitle {
+  font-size: 14px;
+  color: #4A90D9;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.initial-logo {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a1a2e;
+  letter-spacing: -0.5px;
+}
+
+.initial-penguin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.penguin-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.penguin-emoji {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(74, 144, 217, 0.3));
+  animation: float 3s ease-in-out infinite;
+}
+
+.penguin-shadow {
+  width: 80px;
+  height: 16px;
+  background: rgba(74, 144, 217, 0.15);
+  border-radius: 50%;
+  margin-top: -8px;
+}
+
+.penguin-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4A90D9;
+  margin-top: 4px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.initial-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
