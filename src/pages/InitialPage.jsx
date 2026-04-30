@@ -8,7 +8,7 @@ export default function InitialPage() {
     <div className="initial-page">
       <div className="initial-brand">
         <p className="initial-subtitle">AI 영어 회화 파트너</p>
-        <h1 className="initial-logo">Lingua Bot</h1>
+        <h1 className="initial-logo"><span>L</span>ingua Bot</h1>
       </div>
 
       <div className="initial-penguin">

@@ -1,39 +1,75 @@
+/* ── Initial / Landing Page ── */
 .initial-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   min-height: 100vh;
-  padding: 60px 32px 48px;
-  background: linear-gradient(180deg, #e8f4fd 0%, #ffffff 50%);
+  padding: 64px 32px 52px;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Atmospheric orb behind penguin */
+.initial-page::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(30, 255, 184, 0.10) 0%, transparent 65%);
+  pointer-events: none;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;   transform: translateX(-50%) scale(1.1); }
+}
+
+/* ── Brand ── */
 .initial-brand {
   text-align: center;
+  animation: fadeUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .initial-subtitle {
-  font-size: 14px;
-  color: #4A90D9;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  margin-bottom: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  color: var(--mint);
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.85;
 }
 
 .initial-logo {
-  font-size: 32px;
+  font-family: 'Syne', sans-serif;
+  font-size: 38px;
   font-weight: 800;
-  color: #1a1a2e;
-  letter-spacing: -0.5px;
+  color: var(--text-1);
+  letter-spacing: -1.5px;
+  line-height: 1;
 }
 
+/* Mint accent on the 'L' */
+.initial-logo span {
+  color: var(--mint);
+}
+
+/* ── Penguin area ── */
 .initial-penguin {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
   flex: 1;
   justify-content: center;
+  position: relative;
+  animation: fadeUp 0.6s 0.15s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .penguin-wrapper {
@@ -44,36 +80,46 @@
 }
 
 .penguin-emoji {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(74, 144, 217, 0.3));
-  animation: float 3s ease-in-out infinite;
+  animation: float 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(30, 255, 184, 0.30))
+          drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
 }
 
 .penguin-shadow {
-  width: 80px;
-  height: 16px;
-  background: rgba(74, 144, 217, 0.15);
+  width: 70px;
+  height: 12px;
+  background: radial-gradient(ellipse, rgba(30, 255, 184, 0.20) 0%, transparent 70%);
   border-radius: 50%;
-  margin-top: -8px;
+  margin-top: -6px;
 }
 
 .penguin-name {
-  font-size: 16px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
   font-weight: 600;
-  color: #4A90D9;
-  margin-top: 4px;
+  color: var(--mint);
+  margin-top: 10px;
+  letter-spacing: 1px;
+  opacity: 0.75;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+/* ── Tagline ── */
+.initial-tagline {
+  font-size: 14px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 8px;
 }
 
+/* ── Buttons ── */
 .initial-buttons {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  animation: fadeUp 0.6s 0.30s cubic-bezier(0.4, 0, 0.2, 1) both;
 }

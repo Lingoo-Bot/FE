@@ -1,100 +1,165 @@
+/* ── Home Page ── */
 .home-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 0 24px 80px;
-  background: #fff;
+  padding: 0 24px 84px;
+  background: transparent;
 }
 
+/* ── Header ── */
 .home-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0 12px;
+  padding: 24px 0 16px;
+  animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .home-title {
-  font-size: 22px;
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
   font-weight: 800;
-  color: #1a1a2e;
+  color: var(--text-1);
+  letter-spacing: -0.8px;
 }
 
 .bt-icon {
-  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
   cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: background 0.2s;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  transition: all var(--t-med);
 }
 
 .bt-icon:hover {
-  background: #f0f4f8;
+  background: var(--elevated);
+  border-color: var(--border-active);
 }
 
 .bt-icon.connected {
-  animation: none;
+  border-color: rgba(30, 255, 184, 0.35);
+  background: var(--mint-dim);
 }
 
+/* ── Penguin area ── */
 .home-penguin-area {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 16px 0;
+  position: relative;
+  animation: fadeIn 0.7s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Ambient glow behind penguin */
+.home-penguin-area::before {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(30, 255, 184, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.12); }
 }
 
 .home-penguin {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.home-penguin .penguin-emoji {
+  animation: float 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(30, 255, 184, 0.25))
+          drop-shadow(0 12px 32px rgba(0, 0, 0, 0.6));
 }
 
 .penguin-platform {
-  width: 100px;
-  height: 20px;
-  background: radial-gradient(ellipse, rgba(74,144,217,0.25) 0%, transparent 70%);
-  margin-top: -10px;
+  width: 80px;
+  height: 14px;
+  background: radial-gradient(ellipse, rgba(30, 255, 184, 0.18) 0%, transparent 70%);
+  margin-top: -8px;
 }
 
+/* ── Status row ── */
 .home-status {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 20px;
+  padding: 10px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  animation: fadeUp 0.5s 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .status-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .status-dot.on {
-  background: #00C853;
-  box-shadow: 0 0 6px #00C853;
+  background: var(--mint);
+  box-shadow: 0 0 8px var(--mint), 0 0 16px rgba(30, 255, 184, 0.4);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 6px var(--mint); }
+  50%       { box-shadow: 0 0 12px var(--mint), 0 0 22px rgba(30, 255, 184, 0.4); }
 }
 
 .status-dot.off {
-  background: #ccc;
+  background: var(--text-3);
 }
 
 .status-label {
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: var(--text-2);
   font-weight: 500;
 }
 
+/* ── Start button ── */
 .start-btn {
-  margin-bottom: 12px;
+  animation: fadeUp 0.5s 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .session-status {
   font-size: 13px;
   font-weight: 500;
   text-align: center;
+  padding: 10px 16px;
+  border-radius: var(--r-sm);
+  margin-top: 4px;
+  animation: fadeIn 0.3s ease both;
 }
 
-.session-status.success { color: #00C853; }
-.session-status.fail { color: #ff4d4f; }
+.session-status.success {
+  color: var(--mint);
+  background: var(--mint-dim);
+}
+
+.session-status.fail {
+  color: var(--danger);
+  background: rgba(255, 75, 110, 0.08);
+}
