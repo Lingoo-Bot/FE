@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(xargs kill:*)",
+      "Bash(npm run:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(kill 1276 1386)",
+      "Bash(pkill -f \"vite\")",
+      "Read(//tmp/**)",
+      "Bash(pkill -f vite)"
+    ]
+  }
+}

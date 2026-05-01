@@ -1,59 +1,47 @@
 import axios from 'axios'
 
-const crudApi = axios.create({
-  baseURL: 'http://localhost:9002',
+const api = axios.create({
+  baseURL: 'http://localhost:8080',
   headers: { 'Content-Type': 'application/json' },
 })
 
-const converseApi = axios.create({
-  baseURL: 'http://localhost:9001',
-  headers: { 'Content-Type': 'application/json' },
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('accessToken')
+  if (token) config.headers.Authorization = `Bearer ${token}`
+  return config
 })
-
-// 요청마다 토큰 자동 첨부
-const withAuth = (instance) => {
-  instance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('accessToken')
-    if (token) config.headers.Authorization = `Bearer ${token}`
-    return config
-  })
-  return instance
-}
-
-withAuth(crudApi)
-withAuth(converseApi)
 
 // Auth
 export const login = (username, password) =>
-  crudApi.post('/api/user/login', { username, password })
+  api.post('/api/user/login', { username, password })
 
 export const signUp = (data) =>
-  crudApi.post('/api/user/sign-up', data)
+  api.post('/api/user/sign-up', data)
 
 export const checkUsername = (username) =>
-  crudApi.get(`/api/user/${username}`)
+  api.get(`/api/user/${username}`)
 
 // Device (Pairing)
 export const registerDevice = (deviceId, name) =>
-  crudApi.post('/api/paring', { deviceId, name })
+  api.post('/api/paring', { deviceId, name })
 
 export const getDevice = () =>
-  crudApi.get('/api/paring')
+  api.get('/api/paring')
 
 // Records
 export const getRecords = () =>
-  crudApi.get('/api/records/records')
+  api.get('/api/records')
 
 export const getRecordDetail = (recordId) =>
-  crudApi.get(`/api/records/records/${recordId}`)
+  api.get(`/api/records/${recordId}`)
 
 export const deleteRecord = (recordId) =>
-  crudApi.delete(`/api/records/records/${recordId}`)
+  api.delete(`/api/records/${recordId}`)
 
 // Statistics
 export const getStatistics = (yearMonth) =>
-  crudApi.get(`/api/statistics/${yearMonth}`)
+  api.get(`/api/statistics/${yearMonth}`)
 
-// Session (Converse)
+// Session
 export const createSession = () =>
-  converseApi.get('/api/session')
+  api.get('/api/session')
