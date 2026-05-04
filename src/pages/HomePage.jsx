@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getDevice, startConversation } from '../api'
+import { getDevice } from '../api'
 import BottomNav from '../components/BottomNav'
 import './HomePage.css'
 
@@ -15,27 +15,15 @@ export default function HomePage() {
       .catch(() => {})
   }, [])
 
-  const handleStart = async () => {
+  const handleStart = () => {
     if (!connected) { navigate('/pairing'); return }
-    try {
-      await startConversation()
-      navigate('/conversation')
-    } catch {
-      setStatus('로봇에 연결할 수 없습니다. 로봇이 켜져 있는지 확인하세요.')
-    }
+    navigate('/conversation')
   }
 
   return (
     <div className="home-page">
       <div className="home-header">
         <h2 className="home-title">Lingua</h2>
-        <div
-          className={`bt-icon ${connected ? 'connected' : ''}`}
-          onClick={() => navigate('/pairing')}
-          title="디바이스 연결"
-        >
-          {connected ? '🔵' : '🔗'}
-        </div>
       </div>
 
       <div className="home-penguin-area">

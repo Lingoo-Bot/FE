@@ -1,23 +1,37 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { recordConversation, stopConversation } from '../api'
+import { startConversation, recordConversation, stopConversation } from '../api'
 import './ConversationPage.css'
 
+// phase: 'idle' | 'listening' | 'sending' | 'waiting'
 export default function ConversationPage() {
   const navigate = useNavigate()
-  const [status, setStatus] = useState('로봇이 준비됐습니다. 녹음 버튼을 누르세요.')
-  const [recording, setRecording] = useState(false)
+  const [phase, setPhase] = useState('idle')
+  const [status, setStatus] = useState('말하기 버튼을 눌러 대화를 시작하세요.')
 
-  const handleRecord = async () => {
-    setRecording(true)
-    setStatus('녹음 중...')
+  const handleStartTalking = async () => {
+    setPhase('sending')
+    setStatus('로봇 준비 중...')
+    try {
+      await startConversation()
+      setPhase('listening')
+      setStatus('듣고 있어요. 말이 끝나면 말하기 종료를 누르세요.')
+    } catch {
+      setPhase('idle')
+      setStatus('로봇 연결에 실패했습니다. 다시 시도해 주세요.')
+    }
+  }
+
+  const handleDoneTalking = async () => {
+    setPhase('sending')
+    setStatus('음성을 전송하는 중...')
     try {
       await recordConversation()
-      setStatus('응답 대기 중...')
+      setPhase('waiting')
+      setStatus('링구가 생각하는 중... 잠시 기다려 주세요.')
     } catch {
-      setStatus('녹음 전송에 실패했습니다.')
-    } finally {
-      setRecording(false)
+      setPhase('listening')
+      setStatus('전송에 실패했습니다. 다시 시도해 주세요.')
     }
   }
 
@@ -36,7 +50,7 @@ export default function ConversationPage() {
       </div>
 
       <div className="conv-penguin-area">
-        <div className={`conv-penguin ${recording ? 'speaking' : ''}`}>
+        <div className={`conv-penguin ${phase === 'listening' ? 'speaking' : ''}`}>
           <img src="/링구.png" alt="링구" style={{ width: 200, height: 200 }} />
           <div className="conv-glow-ring" />
         </div>
@@ -47,15 +61,28 @@ export default function ConversationPage() {
       </div>
 
       <div className="conv-actions">
-        <button
-          className={`btn conv-record-btn ${recording ? 'recording' : ''}`}
-          onClick={handleRecord}
-          disabled={recording}
-        >
-          {recording ? '녹음 중...' : '녹음'}
-        </button>
+        {phase === 'idle' && (
+          <button className="btn conv-record-btn ready" onClick={handleStartTalking}>
+            말하기
+          </button>
+        )}
+        {phase === 'listening' && (
+          <button className="btn conv-record-btn" onClick={handleDoneTalking}>
+            말하기 종료
+          </button>
+        )}
+        {phase === 'sending' && (
+          <button className="btn conv-record-btn" disabled>
+            처리 중...
+          </button>
+        )}
+        {phase === 'waiting' && (
+          <button className="btn conv-record-btn ready" onClick={handleStartTalking}>
+            다시 말하기
+          </button>
+        )}
         <button className="btn btn-outline" onClick={handleStop}>
-          대화 종료
+          대화 종료 (로봇 비활성화)
         </button>
       </div>
     </div>

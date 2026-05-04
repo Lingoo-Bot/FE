@@ -82,10 +82,15 @@
   box-shadow: 0 0 24px rgba(30, 255, 184, 0.45), 0 4px 16px rgba(30, 255, 184, 0.2);
 }
 
-.conv-record-btn.recording {
-  background: var(--danger);
-  box-shadow: 0 0 20px rgba(255, 75, 110, 0.35);
-  animation: glowPulse 0.8s ease-in-out infinite;
+.conv-record-btn.ready {
+  background: var(--mint-dim);
+  color: var(--mint);
+  border: 1.5px solid var(--mint-border);
+}
+
+.conv-record-btn.ready:hover {
+  background: rgba(30, 255, 184, 0.22);
+  box-shadow: 0 0 16px rgba(30, 255, 184, 0.25);
 }
 
 .conv-record-btn:disabled {
