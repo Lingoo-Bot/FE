@@ -1,0 +1,93 @@
+.conversation-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 24px 48px;
+  background: transparent;
+}
+
+/* ── Penguin area ── */
+.conv-penguin-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0;
+  animation: fadeUp 0.5s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.conv-penguin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conv-glow-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mint-border);
+  box-shadow: 0 0 24px rgba(30, 255, 184, 0.15);
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.conv-penguin.speaking img {
+  filter: drop-shadow(0 0 20px rgba(30, 255, 184, 0.6));
+}
+
+.conv-penguin.speaking .conv-glow-ring {
+  animation: glowPulse 0.8s ease-in-out infinite;
+  border-color: var(--mint);
+}
+
+/* ── Status box ── */
+.conv-status-box {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  text-align: center;
+  animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.conv-status-text {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ── Actions ── */
+.conv-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeUp 0.5s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.conv-record-btn {
+  background: var(--mint);
+  color: var(--void);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.conv-record-btn:hover:not(:disabled) {
+  box-shadow: 0 0 24px rgba(30, 255, 184, 0.45), 0 4px 16px rgba(30, 255, 184, 0.2);
+}
+
+.conv-record-btn.recording {
+  background: var(--danger);
+  box-shadow: 0 0 20px rgba(255, 75, 110, 0.35);
+  animation: glowPulse 0.8s ease-in-out infinite;
+}
+
+.conv-record-btn:disabled {
+  cursor: default;
+}

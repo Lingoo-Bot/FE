@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage'
 import MyPage from './pages/MyPage'
 import RecordsPage from './pages/RecordsPage'
 import FeedbackPage from './pages/FeedbackPage'
+import ConversationPage from './pages/ConversationPage'
 
 function PrivateRoute({ children }) {
   const { user } = useAuth()
@@ -27,6 +28,7 @@ function AppRoutes() {
         <Route path="/mypage" element={<PrivateRoute><MyPage /></PrivateRoute>} />
         <Route path="/records" element={<PrivateRoute><RecordsPage /></PrivateRoute>} />
         <Route path="/records/:recordId" element={<PrivateRoute><FeedbackPage /></PrivateRoute>} />
+        <Route path="/conversation" element={<PrivateRoute><ConversationPage /></PrivateRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

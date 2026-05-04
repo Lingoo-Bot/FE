@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getDevice, startConversation, recordConversation, stopConversation } from '../api'
+import { getDevice, startConversation } from '../api'
 import BottomNav from '../components/BottomNav'
 import './HomePage.css'
 
 export default function HomePage() {
   const navigate = useNavigate()
   const [connected, setConnected] = useState(false)
-  const [talking, setTalking] = useState(false)
   const [status, setStatus] = useState('')
 
   useEffect(() => {
@@ -20,29 +19,10 @@ export default function HomePage() {
     if (!connected) { navigate('/pairing'); return }
     try {
       await startConversation()
-      setTalking(true)
-      setStatus('로봇이 준비됐습니다. 녹음 버튼을 누르세요.')
+      navigate('/conversation')
     } catch {
       setStatus('로봇에 연결할 수 없습니다. 로봇이 켜져 있는지 확인하세요.')
     }
-  }
-
-  const handleRecord = async () => {
-    setStatus('녹음 중...')
-    try {
-      await recordConversation()
-      setStatus('응답 대기 중...')
-    } catch {
-      setStatus('녹음 전송에 실패했습니다.')
-    }
-  }
-
-  const handleStop = async () => {
-    try {
-      await stopConversation()
-    } catch { /* 이미 종료된 경우 무시 */ }
-    setTalking(false)
-    setStatus('')
   }
 
   return (
@@ -72,23 +52,12 @@ export default function HomePage() {
         </span>
       </div>
 
-      {!talking ? (
-        <button
-          className={`btn ${connected ? 'btn-primary' : 'btn-secondary'} start-btn`}
-          onClick={handleStart}
-        >
-          {connected ? '대화 시작' : '디바이스 연결'}
-        </button>
-      ) : (
-        <div className="conversation-controls">
-          <button className="btn btn-primary record-btn" onClick={handleRecord}>
-            대화 종료
-          </button>
-          <button className="btn btn-outline stop-btn" onClick={handleStop}>
-            로봇 비활성화
-          </button>
-        </div>
-      )}
+      <button
+        className={`btn ${connected ? 'btn-primary' : 'btn-secondary'} start-btn`}
+        onClick={handleStart}
+      >
+        {connected ? '대화 시작' : '디바이스 연결'}
+      </button>
 
       {status && <p className="session-status">{status}</p>}
 
