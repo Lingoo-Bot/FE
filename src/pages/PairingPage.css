@@ -161,6 +161,13 @@
   border-left: 3px solid var(--danger);
 }
 
+/* ── Form ── */
+.pairing-form {
+  width: 100%;
+  margin-bottom: 8px;
+  animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
 /* ── Actions ── */
 .pairing-actions {
   width: 100%;

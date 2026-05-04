@@ -42,6 +42,12 @@ export const deleteRecord = (recordId) =>
 export const getStatistics = (yearMonth) =>
   api.get(`/api/statistics/${yearMonth}`)
 
-// Session
-export const createSession = () =>
-  api.get('/api/session')
+// Conversation
+export const startConversation = () =>
+  api.post('/api/conversation/start')
+
+export const recordConversation = () =>
+  api.post('/api/conversation/record')
+
+export const stopConversation = () =>
+  api.post('/api/conversation/stop')
