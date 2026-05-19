@@ -71,8 +71,7 @@ export default function RecordsPage() {
               <div className="record-left">
                 <span className="record-icon">💬</span>
                 <div>
-                  <p className="record-date">{formatDate(record.date)}</p>
-                  <p className="record-id">회화 #{record.recordId}</p>
+                  <p className="record-date">{formatDate(record.date)} 대화 내용</p>
                 </div>
               </div>
               <button
