@@ -2,10 +2,17 @@ import { createContext, useContext, useState } from 'react'
 
 const AuthContext = createContext(null)
 
+  // 개발용 임시 로그인 유저
+  const DEV_USER = {
+    id: 1,
+    nickname: 'test',
+    accessToken: 'dev-token'
+  }
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const stored = localStorage.getItem('user')
-    return stored ? JSON.parse(stored) : null
+    return stored ? JSON.parse(stored) : DEV_USER
   })
 
   const saveUser = (userData) => {
