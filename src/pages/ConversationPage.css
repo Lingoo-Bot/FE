@@ -1,98 +1,186 @@
+/* ── Conversation Page ── */
+
 .conversation-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   min-height: 100vh;
+
   padding: 0 24px 48px;
+
   background: transparent;
 }
 
 /* ── Penguin area ── */
+
 .conv-penguin-area {
   flex: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin: 24px 0;
+
   animation: fadeUp 0.5s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .conv-penguin {
   position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* soft ice ring (glow 제거 → glass ring) */
+
 .conv-glow-ring {
   position: absolute;
+
   width: 220px;
   height: 220px;
+
   border-radius: 50%;
-  border: 1.5px solid var(--mint-border);
-  box-shadow: 0 0 24px rgba(30, 255, 184, 0.15);
-  animation: glowPulse 3s ease-in-out infinite;
+
+  border: 1px solid rgba(124, 199, 255, 0.35);
+
+  background: radial-gradient(
+    circle,
+    rgba(124, 199, 255, 0.10) 0%,
+    transparent 65%
+  );
+
   pointer-events: none;
+
+  animation: ringPulse 4s ease-in-out infinite;
 }
 
+@keyframes ringPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+/* speaking state */
+
 .conv-penguin.speaking img {
-  filter: drop-shadow(0 0 20px rgba(30, 255, 184, 0.6));
+  filter:
+    drop-shadow(0 10px 24px rgba(77, 168, 255, 0.25));
 }
 
 .conv-penguin.speaking .conv-glow-ring {
-  animation: glowPulse 0.8s ease-in-out infinite;
-  border-color: var(--mint);
+  border-color: rgba(77, 168, 255, 0.7);
+
+  background: radial-gradient(
+    circle,
+    rgba(77, 168, 255, 0.18) 0%,
+    transparent 65%
+  );
 }
 
 /* ── Status box ── */
+
 .conv-status-box {
   width: 100%;
-  background: var(--surface);
+
+  background: rgba(255, 255, 255, 0.78);
+
   border: 1px solid var(--border);
+
   border-radius: var(--r-lg);
+
   padding: 16px 20px;
+
   margin-bottom: 24px;
+
   text-align: center;
+
+  backdrop-filter: blur(14px);
+
+  box-shadow: var(--shadow-sm);
+
   animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .conv-status-text {
   font-size: 14px;
+
   color: var(--text-2);
+
   line-height: 1.5;
 }
 
 /* ── Actions ── */
+
 .conv-actions {
   width: 100%;
+
   display: flex;
   flex-direction: column;
+
   gap: 10px;
+
   animation: fadeUp 0.5s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
+/* record button base */
+
 .conv-record-btn {
-  background: var(--mint);
-  color: var(--void);
-  font-weight: 700;
   font-size: 15px;
+  font-weight: 700;
+
+  color: white;
+
+  background: linear-gradient(
+    to bottom,
+    #67b8ff 0%,
+    #4da8ff 100%
+  );
+
+  border: none;
+
+  box-shadow: 0 8px 20px rgba(77, 168, 255, 0.25);
 }
 
 .conv-record-btn:hover:not(:disabled) {
-  box-shadow: 0 0 24px rgba(30, 255, 184, 0.45), 0 4px 16px rgba(30, 255, 184, 0.2);
+  box-shadow: 0 12px 28px rgba(77, 168, 255, 0.32);
+  transform: translateY(-1px);
 }
 
+/* ready state */
+
 .conv-record-btn.ready {
-  background: var(--mint-dim);
-  color: var(--mint);
-  border: 1.5px solid var(--mint-border);
+  background: rgba(219, 238, 255, 0.75);
+
+  color: var(--primary-deep);
+
+  border: 1px solid var(--border-active);
+
+  box-shadow: none;
 }
 
 .conv-record-btn.ready:hover {
-  background: rgba(30, 255, 184, 0.22);
-  box-shadow: 0 0 16px rgba(30, 255, 184, 0.25);
+  background: rgba(219, 238, 255, 0.9);
+
+  box-shadow: 0 6px 16px rgba(77, 168, 255, 0.12);
 }
 
+/* disabled */
+
 .conv-record-btn:disabled {
+  opacity: 0.5;
+
   cursor: default;
+
+  transform: none;
+
+  box-shadow: none;
 }

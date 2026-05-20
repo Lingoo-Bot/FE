@@ -1,179 +1,258 @@
 /* ── Pairing Page ── */
+
 .pairing-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   min-height: 100vh;
+
   padding: 0 24px 48px;
+
   background: transparent;
 }
 
-/* ── Penguin with paired badge ── */
+/* ── Penguin ── */
+
 .pairing-penguin {
   position: relative;
+
   margin: 8px 0 20px;
+
   animation: fadeUp 0.5s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .pairing-penguin .penguin-emoji {
-  filter: drop-shadow(0 0 14px rgba(30, 255, 184, 0.25));
+  filter: drop-shadow(0 10px 18px rgba(77, 168, 255, 0.18));
 }
+
+/* paired badge */
 
 .paired-badge {
   position: absolute;
+
   bottom: -6px;
   right: -12px;
-  background: linear-gradient(135deg, #1EFFB8, #00d4a0);
-  color: var(--void);
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
   font-size: 10px;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 12px rgba(30, 255, 184, 0.40);
+  letter-spacing: 0.4px;
+
+  color: var(--primary-deep);
+
+  background: rgba(219, 238, 255, 0.85);
+
+  border: 1px solid var(--border-active);
+
+  box-shadow: 0 6px 14px rgba(77, 168, 255, 0.12);
 }
 
-/* ── Signal / Scan area ── */
+/* ── Signal / Scan ── */
+
 .pairing-signal {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 10px;
+
   margin-bottom: 24px;
-  position: relative;
+
   animation: fadeUp 0.5s 0.15s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .signal-icon {
-  font-size: 36px;
-  transition: transform var(--t-med);
+  font-size: 34px;
+
   display: block;
+
+  transition: transform var(--t-med);
 }
 
 .signal-icon.scanning {
-  animation: signalPulse 1.2s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px rgba(30, 255, 184, 0.70));
+  animation: softPulse 2.2s ease-in-out infinite;
+
+  filter: drop-shadow(0 0 10px rgba(77, 168, 255, 0.25));
 }
 
-@keyframes signalPulse {
-  0%, 100% { transform: scale(1);    opacity: 1; }
-  50%       { transform: scale(1.18); opacity: 0.75; }
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
 
 .signal-text {
   font-size: 13px;
+
   color: var(--text-2);
-  letter-spacing: 0.3px;
 }
 
 /* ── Scan button ── */
+
 .scan-btn {
   margin-bottom: 20px;
+
   animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ── Device list ── */
+
 .device-list {
   width: 100%;
-  background: var(--surface);
+
+  background: rgba(255, 255, 255, 0.75);
+
   border: 1px solid var(--border);
+
   border-radius: var(--r-lg);
+
   padding: 14px;
+
   margin-bottom: 16px;
+
+  backdrop-filter: blur(14px);
+
   animation: fadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .device-list-title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
+
   font-size: 10px;
+
   color: var(--text-3);
+
   font-weight: 600;
-  letter-spacing: 1.5px;
+
+  letter-spacing: 1.4px;
+
   text-transform: uppercase;
+
   margin-bottom: 10px;
+
   padding: 0 4px;
 }
+
+/* ── Device item ── */
 
 .device-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 13px 16px;
-  background: var(--elevated);
-  border-radius: var(--r-md);
+
   margin-bottom: 8px;
-  cursor: pointer;
-  border: 1.5px solid transparent;
+
+  border-radius: 14px;
+
+  background: var(--surface);
+
+  border: 1px solid transparent;
+
   font-size: 14px;
-  color: var(--text-1);
   font-weight: 500;
+
+  color: var(--text-1);
+
+  cursor: pointer;
+
   transition: all var(--t-med);
+
   animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .device-item:nth-child(2) { animation-delay: 0.05s; }
 .device-item:nth-child(3) { animation-delay: 0.10s; }
 
-.device-item:last-child {
-  margin-bottom: 0;
-}
-
 .device-item:hover {
-  border-color: var(--border-active);
   background: var(--elevated);
+
+  border-color: var(--border-active);
 }
 
 .device-item.selected {
-  border-color: var(--mint-border);
-  background: var(--mint-dim);
-  box-shadow: 0 0 0 1px rgba(30, 255, 184, 0.08) inset;
+  background: rgba(219, 238, 255, 0.7);
+
+  border-color: var(--border-active);
+
+  box-shadow: 0 6px 16px rgba(77, 168, 255, 0.12);
 }
 
 .device-check {
   font-size: 16px;
+
   color: var(--text-3);
+
   transition: color var(--t-fast);
 }
 
 .device-item.selected .device-check {
-  color: var(--mint);
+  color: var(--primary);
 }
 
-/* ── Status feedback ── */
+/* ── Status ── */
+
 .pair-status {
   font-size: 13px;
   font-weight: 600;
+
   margin-bottom: 14px;
+
   padding: 10px 16px;
+
   border-radius: var(--r-sm);
+
   animation: fadeIn 0.3s ease both;
 }
 
 .pair-status.success {
-  color: var(--mint);
-  background: var(--mint-dim);
-  border-left: 3px solid var(--mint);
+  color: var(--primary-deep);
+
+  background: rgba(219, 238, 255, 0.8);
+
+  border-left: 3px solid var(--primary);
 }
 
 .pair-status.fail {
   color: var(--danger);
-  background: rgba(255, 75, 110, 0.08);
+
+  background: rgba(239, 68, 68, 0.08);
+
   border-left: 3px solid var(--danger);
 }
 
 /* ── Form ── */
+
 .pairing-form {
   width: 100%;
+
   margin-bottom: 8px;
+
   animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ── Actions ── */
+
 .pairing-actions {
   width: 100%;
+
   display: flex;
   flex-direction: column;
+
   gap: 10px;
+
   margin-top: auto;
+
   animation: fadeUp 0.5s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
