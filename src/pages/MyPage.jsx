@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getStatistics } from '../api'
+import { getStatistics, getWeekly } from '../api'
 import { useAuth } from '../context/AuthContext'
 import BottomNav from '../components/BottomNav'
 import './MyPage.css'
@@ -32,22 +32,34 @@ export default function MyPage() {
   const { user, logout } = useAuth()
 
   const [stats, setStats] = useState(null)
-  const [yearMonth] = useState(getYearMonth())
+  const [weekly, setWeekly] = useState([])
+  const [yearMonth, setYearMonth] = useState(getYearMonth())
 
+  // 테스트용
   const isDev = true
 
-  useEffect(() => {
-    if (isDev) {
-      setStats(mockStats)
-      return
-    }
+useEffect(() => {
+  if (isDev) {
+    setStats(mockStats)
+    setWeekly(mockStats.weeklyStudy)
+    return
+  }
 
-    getStatistics(yearMonth)
-      .then((res) =>
-        setStats(res.data?.message === 'success' ? res.data.data : null)
-      )
-      .catch(() => setStats(null))
-  }, [])
+  // 월간
+  getStatistics(yearMonth)
+    .then((res) =>
+      setStats(res.data?.message === 'success' ? res.data.data : null)
+    )
+    .catch(() => setStats(null))
+  
+  // 주간
+  getWeekly()
+    .then((res) =>
+      setWeekly(res.data?.message === 'success' ? res.data.data : [])
+    )
+    .catch(() => setWeekly([]))
+}, [yearMonth])
+
 
   const handleLogout = () => {
     logout()
@@ -61,20 +73,13 @@ export default function MyPage() {
     return `${h}시간 ${m}분`
   }
 
-  const months = Array.from({ length: 6 }, (_, i) => {
-    const d = new Date()
-    d.setMonth(d.getMonth() - i)
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-  })
-
-  const weekly = stats?.weeklyStudy ?? []
-
   const maxTime = weekly.length
     ? Math.max(...weekly.map(d => Number(d.time) || 0))
     : 0
 
   return (
     <div className="mypage">
+
       <div className="mypage-header">
         <h2 className="home-title">MyPage</h2>
       </div>
@@ -91,58 +96,60 @@ export default function MyPage() {
 
       <div className="stats-section">
         <div className="stats-header">
-          <p className="section-title">학습 통계</p>
-          <select
-            className="month-select"
-            value={yearMonth}
-            onChange={(e) => setYearMonth(e.target.value)}
-          >
-            {months.map((m) => (
-              <option key={m} value={m}>{m}</option>
-            ))}
+          <p className="section-title">월간 학습 통계</p>
+
+            <select
+              className="month-select"
+              value={yearMonth}
+              onChange={(e) => setYearMonth(e.target.value)}
+            >
+            {Array.from({ length: 6 }, (_, i) => {
+              const d = new Date()
+              d.setMonth(d.getMonth() - i)
+              const m = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+              return <option key={m} value={m}>{m}</option>
+            })}
           </select>
         </div>
 
         <div className="stats-card">
           {stats ? (
-            <>
-              {/* 총 학습 시간 */}
-              <div className="stat-item">
-                <span className="stat-icon">⏱</span>
-                <div>
-                  <p className="stat-value">{formatTime(stats.studyTime)}</p>
-                  <p className="stat-label">총 학습 시간</p>
-                </div>
+            <div className="stat-item">
+              <span className="stat-icon">⏱</span>
+              <div>
+                <p className="stat-value">
+                  {formatTime(stats.studyTime)}
+                </p>
+                <p className="stat-label">총 학습 시간</p>
               </div>
-
-              {/* 주간 그래프 */}
-              <div className="weekly-graph">
-                {weekly.map((d) => {
-                  const value = Number(d.time) || 0
-                  const height = maxTime
-                    ? (value / maxTime) * 100
-                    : 0
-
-                  return (
-                    <div className="bar-item" key={d.day}>
-                      <div
-                        className="bar"
-                        style={{ height: `${height}%` }}
-                        title={`${value} sec`}
-                      />
-                      <span className="bar-label">{d.day}</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </>
+            </div>
           ) : (
-            <p className="no-stats">이 달의 학습 기록이 없습니다.</p>
+            <p className="no-stats">데이터 없음</p>
           )}
         </div>
       </div>
 
-      {/* 버튼 */}
+      <div className="stats-section">
+        <p className="section-title">주간 학습 그래프</p>
+
+        <div className="weekly-graph">
+          {weekly.map((d) => {
+            const value = Number(d.time) || 0
+            const height = maxTime ? (value / maxTime) * 100 : 0
+
+            return (
+              <div className="bar-item" key={d.day}>
+                <div
+                  className="bar"
+                  style={{ height: `${height}%` }}
+                />
+                <span className="bar-label">{d.day}</span>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
       <div className="mypage-actions">
         <button className="btn btn-outline" onClick={() => navigate('/pairing')}>
           🔗 디바이스 관리
