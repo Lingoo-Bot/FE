@@ -16,30 +16,25 @@ function formatDate(dateStr) {
 }
 
 export default function RecordsPage() {
+
   const navigate = useNavigate()
   const [records, setRecords] = useState([])
   const [loading, setLoading] = useState(true)
+  const [deleteTarget, setDeleteTarget] = useState(null)
 
   const fetchRecords = () => {
     setLoading(true)
     getRecords()
-      .then((res) => setRecords(res.data?.message === 'success' ? res.data.data : []))
+      .then((res) =>
+        setRecords(res.data?.message === 'success' ? res.data.data : [])
+      )
       .catch(() => setRecords([]))
       .finally(() => setLoading(false))
   }
 
-  useEffect(() => { fetchRecords() }, [])
-
-  const handleDelete = async (e, recordId) => {
-    e.stopPropagation()
-    if (!window.confirm('이 기록을 삭제할까요?')) return
-    try {
-      await deleteRecord(recordId)
-      setRecords((prev) => prev.filter((r) => r.recordId !== recordId))
-    } catch {
-      alert('삭제에 실패했습니다.')
-    }
-  }
+  useEffect(() => {
+    fetchRecords()
+  }, [])
 
   return (
     <div className="records-page">
@@ -71,12 +66,18 @@ export default function RecordsPage() {
               <div className="record-left">
                 <span className="record-icon">💬</span>
                 <div>
-                  <p className="record-date">{formatDate(record.date)} 대화 내용</p>
+                  <p className="record-date">
+                    {formatDate(record.date)} 대화 내용
+                  </p>
                 </div>
               </div>
+
               <button
                 className="record-delete"
-                onClick={(e) => handleDelete(e, record.recordId)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setDeleteTarget(record.recordId)
+                }}
                 title="삭제"
               >
                 🗑
@@ -85,7 +86,42 @@ export default function RecordsPage() {
           ))}
         </div>
       )}
+        {deleteTarget && (
+          <div className="modal-backdrop">
+            <div className="modal-card">
+              <p className="modal-title">삭제할까요?</p>
+              <p className="modal-sub">이 기록은 복구할 수 없습니다.</p>
 
+              <div className="modal-actions">
+                <button
+                  className="modal-btn danger"
+                  onClick={async () => {
+                    try {
+                      await deleteRecord(deleteTarget)
+
+                      setRecords((prev) =>
+                        prev.filter((r) => r.recordId !== deleteTarget)
+                      )
+
+                      setDeleteTarget(null)
+                    } catch {
+                      alert('삭제에 실패했습니다')
+                    }
+                  }}
+                >
+                  삭제
+                </button>
+
+                <button
+                  className="modal-btn cancel"
+                  onClick={() => setDeleteTarget(null)}
+                >
+                  취소
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       <BottomNav active="records" />
     </div>
   )
