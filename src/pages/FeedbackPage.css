@@ -1,83 +1,116 @@
 /* ── Feedback / Chat Page ── */
+
 .feedback-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   min-height: 100vh;
+
   padding: 0 20px 48px;
+
   background: transparent;
 }
 
-/* ── Loading / Error state ── */
+/* ── Loading / Error ── */
+
 .feedback-loading {
   flex: 1;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   gap: 14px;
+
   padding: 60px 0;
-  color: var(--text-2);
+
   font-size: 14px;
+
+  color: var(--text-2);
+
   text-align: center;
+
   animation: fadeIn 0.5s ease both;
 }
 
 .feedback-loading span {
   font-size: 48px;
-  animation: float 2s ease-in-out infinite;
+
+  animation: float 3s ease-in-out infinite;
 }
 
 /* ── Date badge ── */
+
 .feedback-date-badge {
-  background: var(--surface);
-  border: 1px solid var(--mint-border);
-  border-radius: var(--r-xl);
-  padding: 10px 22px;
   display: flex;
   align-items: center;
+
   gap: 12px;
+
   margin: 14px 0 20px;
+
+  padding: 10px 20px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(14px);
+
   animation: fadeUp 0.45s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .date-main {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
+
   font-size: 15px;
   font-weight: 700;
-  color: var(--mint);
-  letter-spacing: 0.5px;
+
+  color: var(--primary);
 }
 
 .date-sep {
   width: 1px;
-  height: 16px;
+  height: 14px;
+
   background: var(--border-active);
 }
 
 .date-time {
   font-size: 13px;
+
   color: var(--text-2);
 }
 
-/* ── Content wrapper ── */
+/* ── Content ── */
+
 .feedback-content {
   width: 100%;
+
   flex: 1;
+
   animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ── Message list ── */
+
 .message-list {
   display: flex;
   flex-direction: column;
+
   gap: 14px;
 }
 
 /* ── Bubble row ── */
+
 .message-bubble {
   display: flex;
   align-items: flex-end;
+
   gap: 10px;
 }
 
@@ -85,62 +118,83 @@
   flex-direction: row-reverse;
 }
 
-/* Avatar */
+/* avatar */
+
 .msg-avatar {
   font-size: 26px;
+
   flex-shrink: 0;
+
   margin-bottom: 2px;
 }
 
-.msg-avatar.user-av {
-  /* user avatar styling handled by parent direction */
-}
+/* ── Bubble ── */
 
-/* Bubble text */
 .msg-text {
   max-width: 72%;
+
   padding: 13px 17px;
-  border-radius: 18px;
+
   font-size: 14px;
   line-height: 1.6;
+
+  border-radius: 18px;
+
   font-weight: 400;
+
+  color: var(--text-1);
 }
 
-/* Bot bubble — left side */
+/* bot */
+
 .bot-msg .msg-text {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.75);
+
   border: 1px solid var(--border);
-  color: var(--text-1);
-  border-bottom-left-radius: 4px;
+
+  border-bottom-left-radius: 6px;
 }
 
-/* User bubble — right side */
+/* user */
+
 .user-msg .msg-text {
-  background: linear-gradient(135deg, rgba(30, 255, 184, 0.22), rgba(30, 255, 184, 0.12));
-  border: 1px solid var(--mint-border);
-  color: var(--text-1);
-  border-bottom-right-radius: 4px;
+  background: rgba(219, 238, 255, 0.85);
+
+  border: 1px solid var(--border-active);
+
+  border-bottom-right-radius: 6px;
 }
 
-/* ── Raw content fallback ── */
+/* ── Raw fallback ── */
+
 .raw-content {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.75);
+
   border: 1px solid var(--border);
+
   border-radius: var(--r-lg);
+
   padding: 18px;
+
   font-size: 14px;
+
   color: var(--text-1);
+
   line-height: 1.8;
+
   white-space: pre-wrap;
 }
 
-/* ── Bottom penguin ── */
+/* ── Penguin ── */
+
 .feedback-penguin {
   margin-top: 28px;
+
   text-align: center;
-  opacity: 0.6;
+
+  opacity: 0.65;
 }
 
 .feedback-penguin span {
-  filter: drop-shadow(0 0 10px rgba(30, 255, 184, 0.25));
+  filter: drop-shadow(0 6px 14px rgba(77, 168, 255, 0.18));
 }
