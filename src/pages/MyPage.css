@@ -222,15 +222,42 @@
 .bar {
   width: 16px;
   background: #4f7cff;
-  border-radius: 6px;
-  transition: 0.3s ease;
+
+  border-radius: 8px 8px 4px 4px;
 
   display: block;
   min-height: 1px;
+
+  transform-origin: bottom;
+
+  transform: scaleY(0);
+
+  opacity: 0;
+
+  animation:
+    growBar 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  animation-delay: 0.35s;
 }
 
 .bar-label {
   margin-top: 6px;
   font-size: 12px;
   color: #888;
+}
+
+@keyframes growBar {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }

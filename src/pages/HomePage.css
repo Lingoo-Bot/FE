@@ -126,7 +126,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   padding: 12px 18px;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid #dbe7f3;
@@ -176,6 +176,7 @@
 /* ── Start button ── */
 .start-btn {
   animation: fadeUp 0.5s 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+  margin-bottom: 30px;
 }
 
 .session-status {
