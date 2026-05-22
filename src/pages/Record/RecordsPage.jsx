@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getRecords, deleteRecord } from '../api'
-import BottomNav from '../components/BottomNav'
+import { getRecords, deleteRecord } from '../../api'
+import BottomNav from '../../components/BottomNav'
 import './RecordsPage.css'
 
 function formatDate(dateStr) {

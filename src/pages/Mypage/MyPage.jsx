@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getStatistics, getWeekly } from '../api'
-import { useAuth } from '../context/AuthContext'
-import BottomNav from '../components/BottomNav'
+import { getStatistics, getWeekly } from '../../api'
+import { useAuth } from '../../context/AuthContext'
+import BottomNav from '../../components/BottomNav'
 import './MyPage.css'
 
 function getYearMonth() {
@@ -36,29 +36,29 @@ export default function MyPage() {
   const [yearMonth, setYearMonth] = useState(getYearMonth())
 
   // 테스트용
-  const isDev = true
+  const isDev = false
 
-useEffect(() => {
-  if (isDev) {
-    setStats(mockStats)
-    setWeekly(mockStats.weeklyStudy)
-    return
-  }
+  useEffect(() => {
+    if (isDev) {
+      setStats(mockStats)
+      setWeekly(mockStats.weeklyStudy)
+      return
+    }
 
-  // 월간
-  getStatistics(yearMonth)
-    .then((res) =>
-      setStats(res.data?.message === 'success' ? res.data.data : null)
-    )
-    .catch(() => setStats(null))
+    // 월간
+    getStatistics(yearMonth)
+      .then((res) =>
+        setStats(res.data?.message === 'success' ? res.data.data : null)
+      )
+      .catch(() => setStats(null))
   
-  // 주간
-  getWeekly()
-    .then((res) =>
-      setWeekly(res.data?.message === 'success' ? res.data.data : [])
-    )
-    .catch(() => setWeekly([]))
-}, [yearMonth])
+    // 주간
+    getWeekly()
+      .then((res) =>
+        setWeekly(res.data?.message === 'success' ? res.data.data : [])
+      )
+      .catch(() => setWeekly([]))
+  }, [yearMonth])
 
 
   const handleLogout = () => {

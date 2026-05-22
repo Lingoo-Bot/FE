@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getDevice } from '../api'
-import BottomNav from '../components/BottomNav'
+import { getDevice } from '../../api'
+import BottomNav from '../../components/BottomNav'
 import './HomePage.css'
 
 export default function HomePage() {
