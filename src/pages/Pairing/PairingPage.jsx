@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { registerDevice, getDevice } from '../api'
+import { registerDevice, getDevice } from '../../api'
 import './PairingPage.css'
 
 export default function PairingPage() {

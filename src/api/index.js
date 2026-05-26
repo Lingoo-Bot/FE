@@ -42,6 +42,9 @@ export const deleteRecord = (recordId) =>
 export const getStatistics = (yearMonth) =>
   api.get(`/api/statistics/${yearMonth}`)
 
+export const getWeekly = () =>
+  api.get(`/api/statistics/weekly`)
+
 // Conversation
 export const startConversation = () =>
   api.post('/api/conversation/start')

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { signUp, checkUsername } from '../api'
+import { signUp, checkUsername } from '../../api'
 import './AuthPage.css'
 
 export default function SignUpPage() {

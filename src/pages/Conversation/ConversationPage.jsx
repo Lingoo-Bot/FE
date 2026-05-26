@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { startConversation, recordConversation, stopConversation } from '../api'
+import { startConversation, recordConversation, stopConversation } from '../../api/'
 import './ConversationPage.css'
 
 // phase: 'idle' | 'listening' | 'sending' | 'waiting'

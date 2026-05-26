@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { login, getDevice } from '../api'
-import { useAuth } from '../context/AuthContext'
+import { login, getDevice } from '../../api'
+import { useAuth } from '../../context/AuthContext'
 import './AuthPage.css'
 
 export default function LoginPage() {

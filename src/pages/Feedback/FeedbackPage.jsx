@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getRecordDetail } from '../api'
+import { getRecordDetail } from '../../api'
 import './FeedbackPage.css'
 
 function formatDate(dateStr) {
