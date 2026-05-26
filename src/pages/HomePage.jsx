@@ -36,7 +36,7 @@ export default function HomePage() {
       <div className="home-status">
         <div className={`status-dot ${connected ? 'on' : 'off'}`} />
         <span className="status-label">
-          {connected ? '디바이스 연결됨' : '디바이스 미연결'}
+          {connected ? '디바이스 등록됨' : '디바이스 미등록'}
         </span>
       </div>
 

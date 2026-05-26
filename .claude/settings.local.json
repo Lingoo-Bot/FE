@@ -12,7 +12,10 @@
       "Bash(kill 1276 1386)",
       "Bash(pkill -f \"vite\")",
       "Read(//tmp/**)",
-      "Bash(pkill -f vite)"
+      "Bash(pkill -f vite)",
+      "Bash(git *)",
+      "Bash(xargs ls *)",
+      "Bash(fuser -k 3000/tcp 3001/tcp)"
     ]
   }
 }

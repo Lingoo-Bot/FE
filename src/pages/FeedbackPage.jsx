@@ -28,14 +28,30 @@ export default function FeedbackPage() {
       .finally(() => setLoading(false))
   }, [recordId])
 
-  // content를 대화 형식으로 파싱 (JSON 배열 or 일반 텍스트)
   const parseContent = (content) => {
     if (!content) return []
     try {
-      return JSON.parse(content)
+      const parsed = JSON.parse(content)
+      return Array.isArray(parsed) ? parsed : [{ role: 'system', content: content }]
     } catch {
-      return [{ role: 'system', text: content }]
+      return [{ role: 'system', content: content }]
     }
+  }
+
+  const getMessageText = (content) => {
+    if (content == null) return ''
+    if (typeof content === 'object') {
+      return content.message ?? content.text ?? content.content ?? JSON.stringify(content)
+    }
+    try {
+      const parsed = JSON.parse(content)
+      if (typeof parsed === 'object' && parsed !== null) {
+        return parsed.message ?? parsed.text ?? parsed.content ?? content
+      }
+    } catch {
+      // plain string
+    }
+    return content
   }
 
   const messages = record ? parseContent(record.content) : []
@@ -79,7 +95,7 @@ export default function FeedbackPage() {
                     {msg.role !== 'user' && (
                       <span className="msg-avatar">🐧</span>
                     )}
-                    <div className="msg-text">{msg.text || msg.content || String(msg)}</div>
+                    <div className="msg-text">{getMessageText(msg.content ?? msg.text)}</div>
                     {msg.role === 'user' && (
                       <span className="msg-avatar user-av">👤</span>
                     )}
