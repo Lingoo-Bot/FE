@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { startConversation, recordConversation, stopConversation } from '../../api/'
 import './ConversationPage.css'
 
-// phase: 'idle' | 'listening' | 'sending' | 'waiting'
+// phase: 'idle' | 'listening' | 'sending' | 'waiting' | 'answering'
 export default function ConversationPage() {
   const navigate = useNavigate()
   const [phase, setPhase] = useState('idle')
@@ -24,11 +24,11 @@ export default function ConversationPage() {
 
   const handleDoneTalking = async () => {
     setPhase('sending')
-    setStatus('음성을 전송하는 중...')
+    setStatus('링구가 생각하는 중... 잠시 기다려 주세요.')
     try {
       await recordConversation()
-      setPhase('waiting')
-      setStatus('링구가 생각하는 중... 잠시 기다려 주세요.')
+      setPhase('answering')
+      setStatus('링구가 대답하고 있어요.')
     } catch {
       setPhase('listening')
       setStatus('전송에 실패했습니다. 다시 시도해 주세요.')
@@ -77,6 +77,11 @@ export default function ConversationPage() {
           </button>
         )}
         {phase === 'waiting' && (
+          <button className="btn conv-record-btn ready" onClick={handleStartTalking}>
+            다시 말하기
+          </button>
+        )}
+        {phase === 'answering' && (
           <button className="btn conv-record-btn ready" onClick={handleStartTalking}>
             다시 말하기
           </button>
