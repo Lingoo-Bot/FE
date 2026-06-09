@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getStatistics, getWeekly } from '../../api'
+import { getStatistics, getWeekly, login } from '../../api'
 import { useAuth } from '../../context/AuthContext'
 import BottomNav from '../../components/BottomNav'
 import './MyPage.css'
@@ -34,6 +34,10 @@ export default function MyPage() {
   const [stats, setStats] = useState(null)
   const [weekly, setWeekly] = useState([])
   const [yearMonth, setYearMonth] = useState(getYearMonth())
+  const [showModal, setShowModal] = useState(false)
+  const [pwForm, setPwForm] = useState({ username: '', password: '' })
+  const [pwError, setPwError] = useState('')
+  const [pwLoading, setPwLoading] = useState(false)
 
   // 테스트용
   const isDev = false
@@ -64,6 +68,31 @@ export default function MyPage() {
   const handleLogout = () => {
     logout()
     navigate('/', { replace: true })
+  }
+
+  const openDeviceModal = () => {
+    setPwForm({ username: '', password: '' })
+    setPwError('')
+    setShowModal(true)
+  }
+
+  const handleVerifyPassword = async (e) => {
+    e.preventDefault()
+    if (!pwForm.username || !pwForm.password) {
+      setPwError('아이디와 비밀번호를 입력해주세요.')
+      return
+    }
+    setPwLoading(true)
+    setPwError('')
+    try {
+      await login(pwForm.username, pwForm.password)
+      setShowModal(false)
+      navigate('/pairing')
+    } catch {
+      setPwError('아이디 또는 비밀번호가 올바르지 않습니다.')
+    } finally {
+      setPwLoading(false)
+    }
   }
 
   const formatTime = (seconds) => {
@@ -151,7 +180,7 @@ export default function MyPage() {
       </div>
 
       <div className="mypage-actions">
-        <button className="btn btn-outline" onClick={() => navigate('/pairing')}>
+        <button className="btn btn-outline" onClick={openDeviceModal}>
           🔗 디바이스 관리
         </button>
 
@@ -161,6 +190,51 @@ export default function MyPage() {
       </div>
 
       <BottomNav active="mypage" />
+
+      {showModal && (
+        <div className="pw-modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="pw-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="pw-modal-title">본인 확인</p>
+            <p className="pw-modal-desc">디바이스 변경을 위해 비밀번호를 입력해주세요.</p>
+            <form onSubmit={handleVerifyPassword}>
+              <input
+                className="pw-modal-input"
+                type="text"
+                placeholder="아이디"
+                value={pwForm.username}
+                onChange={(e) => { setPwForm(f => ({ ...f, username: e.target.value })); setPwError('') }}
+                autoComplete="username"
+                autoFocus
+              />
+              <input
+                className="pw-modal-input"
+                type="password"
+                placeholder="비밀번호"
+                value={pwForm.password}
+                onChange={(e) => { setPwForm(f => ({ ...f, password: e.target.value })); setPwError('') }}
+                autoComplete="current-password"
+              />
+              {pwError && <p className="pw-modal-error">{pwError}</p>}
+              <div className="pw-modal-actions">
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => setShowModal(false)}
+                >
+                  취소
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={pwLoading}
+                >
+                  {pwLoading ? '확인 중...' : '확인'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
