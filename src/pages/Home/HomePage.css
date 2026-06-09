@@ -1,0 +1,234 @@
+/* ── Home Page ── */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 24px 84px;
+  background: linear-gradient(to bottom, #f8fcff 0%, #edf6ff 100%);
+}
+
+/* ── Header ── */
+.home-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0 16px;
+  animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.home-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.8px;
+}
+
+.bt-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid #d8e7f5;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(100, 140, 190, 0.08);
+}
+
+.bt-icon:hover {
+  background: #ffffff;
+  border-color: #9ecfff;
+  transform: translateY(-1px);
+}
+
+.bt-icon.connected {
+  border-color: #93c5fd;
+  background: #e0f2fe;
+}
+
+/* ── Penguin area ── */
+.home-penguin-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  position: relative;
+  animation: fadeIn 0.7s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Ambient glow behind penguin */
+.home-penguin-area::before {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(77, 168, 255, 0.18) 0%,
+    rgba(77, 168, 255, 0.08) 35%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.home-penguin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.home-penguin .penguin-emoji {
+  animation: float 4s ease-in-out infinite;
+  filter:
+    drop-shadow(0 10px 24px rgba(70, 130, 180, 0.12))
+    drop-shadow(0 2px 8px rgba(255, 255, 255, 0.7));
+}
+
+.penguin-platform {
+  width: 92px;
+  height: 16px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(120, 190, 255, 0.28) 0%,
+    rgba(120, 190, 255, 0.12) 45%,
+    transparent 75%
+  );
+}
+
+/* ── Status row ── */
+.home-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #dbe7f3;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 18px rgba(100, 140, 190, 0.08);
+  animation: fadeUp 0.5s 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.on {
+  background: #4da8ff;
+  box-shadow:
+    0 0 8px rgba(77, 168, 255, 0.6),
+    0 0 18px rgba(77, 168, 255, 0.25);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(77, 168, 255, 0.45);
+  }
+
+  50% {
+    box-shadow:
+      0 0 12px rgba(77, 168, 255, 0.7),
+      0 0 20px rgba(77, 168, 255, 0.28);
+  }
+}
+
+.status-dot.off {
+  background: #b6c2cf;
+}
+
+.status-label {
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* ── Start button ── */
+.start-btn {
+  animation: fadeUp 0.5s 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+  margin-bottom: 30px;
+}
+
+.session-status {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 14px;
+  margin-top: 8px;
+  animation: fadeIn 0.3s ease both;
+}
+
+.session-status.success {
+  color: #2f7fe0;
+  background: #dbeeff;
+}
+
+.session-status.fail {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* ── Floating animation ── */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ── Fade animations ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

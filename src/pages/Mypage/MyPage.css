@@ -1,0 +1,336 @@
+/* ── My Page ── */
+.mypage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 24px 88px;
+  background: transparent;
+}
+
+/* ── Header ── */
+.mypage-header {
+  width: 100%;
+  padding: 24px 0 20px;
+  animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.mypage-header .home-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-1);
+  letter-spacing: -0.5px;
+}
+
+/* ── Profile card ── */
+.profile-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 22px 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.5s 0.1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Subtle mint sheen */
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(30, 255, 184, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.profile-avatar {
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, rgba(30, 255, 184, 0.20), rgba(123, 92, 246, 0.15));
+  border: 2px solid var(--mint-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(30, 255, 184, 0.15);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-nickname {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.3px;
+}
+
+.profile-username {
+  font-size: 13px;
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+/* ── Stats section ── */
+.stats-section {
+  width: 100%;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.month-select {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 7px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-2);
+  outline: none;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all var(--t-med);
+}
+
+.month-select:hover,
+.month-select:focus {
+  border-color: var(--mint-border);
+  color: var(--text-1);
+}
+
+/* ── Stats card ── */
+.stats-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(123, 92, 246, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── Stat row ── */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-icon {
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--elevated);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.stat-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--mint);
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 3px;
+  letter-spacing: 0.3px;
+}
+
+.no-stats {
+  font-size: 13px;
+  color: var(--text-3);
+  text-align: center;
+  padding: 16px 0;
+}
+
+/* ── Actions ── */
+.mypage-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeUp 0.5s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.weekly-graph {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 140px;
+  margin-top: 20px;
+  padding: 10px 0;
+}
+
+.bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.bar {
+  width: 16px;
+  background: #4f7cff;
+
+  border-radius: 8px 8px 4px 4px;
+
+  display: block;
+  min-height: 1px;
+
+  transform-origin: bottom;
+
+  transform: scaleY(0);
+
+  opacity: 0;
+
+  animation:
+    growBar 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  animation-delay: 0.35s;
+}
+
+.bar-label {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ── Password Modal ── */
+.pw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+  backdrop-filter: blur(4px);
+}
+
+.pw-modal {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 28px 24px 24px;
+  animation: fadeUp 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.pw-modal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 8px;
+}
+
+.pw-modal-desc {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.pw-modal-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--elevated);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-1);
+  outline: none;
+  transition: border-color var(--t-med);
+  margin-bottom: 10px;
+}
+
+.pw-modal-input:focus {
+  border-color: var(--mint-border);
+}
+
+.pw-modal-error {
+  font-size: 12px;
+  color: #ff5e7a;
+  margin-bottom: 16px;
+}
+
+.pw-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.pw-modal-actions .btn {
+  flex: 1;
+}
+
+@keyframes growBar {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
